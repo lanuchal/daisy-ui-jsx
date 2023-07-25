@@ -1,0 +1,64 @@
+.box-menu {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  /* background-color: aqua; */
+  height: 98.5vh;
+  z-index: 2;
+}
+.box-nav {
+  /* margin-top: 0.5rem; */
+
+  margin-left: 16.5rem;
+  padding: 0.5rem 0.5rem;
+}
+.box-content {
+  /* min-height: 100vh; */
+  padding-left: 18rem;
+}
+.box-dashboard {
+  height: 100vh;
+}
+
+.ul-menu {
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* background-color: aqua; */
+  max-height: 95vh;
+  /* min-height: 88vh; */
+  padding-bottom: 10rem;
+}
+.box-footer {
+  width: 100%;
+  /* background-color: aqua; */
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  padding-left: 17rem;
+  z-index: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0.2rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e3e3e3;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #9e9d9d;
+}
+
+.icon-socail:hover {
+  color: rgb(0, 153, 255);
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.btn {
+  text-transform: none;
+}
+
+.active {
+    @apply text-primary;
+  }
