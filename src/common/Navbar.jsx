@@ -5,11 +5,20 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../stores/LoginSlice";
 import { handleChangeTheme } from "../stores/ThemeSlice";
+import { showMenu } from "../stores/MenuSlice";
 
-import { BiSolidBrushAlt, BiBrush } from "react-icons/bi";
+import profile from "/src/assets/img/eskimo_496436.png";
+
+import {
+  BiSolidBrushAlt,
+  BiBrush,
+  BiLogOut,
+  BiUser,
+  BiSolidKey,
+} from "react-icons/bi";
 
 function Navbar() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const theme = useSelector((state) => state.themeStore.value);
@@ -18,9 +27,8 @@ function Navbar() {
     dispatch(handleChangeTheme(data));
   };
 
-  const handelLogout = () => {
-    dispatch(handleLogout());
-    navigate("/");
+  const clickShowMenu = () => {
+    dispatch(showMenu());
   };
 
   const dataTheme = [
@@ -56,52 +64,24 @@ function Navbar() {
   ];
   return (
     <div className="box-nav ">
-      <div className="navbar rounded-box">
+      <div className="navbar rounded-box box-nav-in">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <a
+            className="btn btn-ghost normal-case text-xl"
+            onClick={() => clickShowMenu()}
+          >
+            <svg
+              className="swap-off fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 512 512"
+            >
+              <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+            </svg>
+          </a>
         </div>
         <div className="flex-none">
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-sm  btn-primary text-lg">
-              <BiBrush /> <span className="text-sm">{theme}</span>
-            </label>
-
-            <div
-              tabIndex={0}
-              className="mt-3 z-[5] card card-compact dropdown-content w-96 bg-base-100 shadow"
-            >
-              <div className="card-body">
-                <div class="grid grid-cols-3 gap-3">
-                  {dataTheme.map((themeInArray, index) => {
-                    const maxLength = 7;
-                    var valTheme;
-                    if (themeInArray.length > maxLength) {
-                      valTheme = themeInArray.slice(0, 5) + "..";
-                    } else {
-                      valTheme = themeInArray;
-                    }
-
-                    if (themeInArray) {
-                      return (
-                        <div className="lg:tooltip" data-tip={themeInArray}>
-                          <button
-                            className={`btn btn-sm btn-block ${
-                              themeInArray == theme && "btn-primary"
-                            }`}
-                            onClick={() => clickChangeTheme(themeInArray)}
-                          >
-                            <BiSolidBrushAlt />
-                            {valTheme}
-                          </button>
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <div className="indicator">
@@ -120,7 +100,9 @@ function Navbar() {
                   />
                 </svg>
 
-                <span className="badge badge-sm indicator-item">8</span>
+                <span className="badge badge-sm indicator-item bg-orange-600 text-white">
+                  8
+                </span>
               </div>
             </label>
 
@@ -141,9 +123,54 @@ function Navbar() {
           </div>
 
           <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn  btn-ghost btn-circle text-primary text-2xl">
+              <BiBrush /> 
+            </label>
+
+            <div
+              tabIndex={0}
+              className="mt-3 z-[5] card card-compact dropdown-content lg:96 md:w-96 sm:w-72 w-72 bg-base-100 shadow"
+            >
+              <div className="card-body">
+                <div className="flex flex-wrap justify-between">
+                  {dataTheme.map((themeInArray, key) => {
+                    const maxLength = 7;
+                    var valTheme;
+                    if (themeInArray.length > maxLength) {
+                      valTheme = themeInArray.slice(0, 5) + "..";
+                    } else {
+                      valTheme = themeInArray;
+                    }
+
+                    if (themeInArray) {
+                      return (
+                        <div
+                          className="tooltip w-28 ms-1 mb-1"
+                          data-tip={themeInArray}
+                          key={key}
+                        >
+                          <button
+                            className={`btn btn-sm btn-block ${
+                              themeInArray == theme && "btn-primary"
+                            }`}
+                            onClick={() => clickChangeTheme(themeInArray)}
+                          >
+                            <BiSolidBrushAlt />
+                            {valTheme}
+                          </button>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="/src/assets/img/eskimo_496436.png" />
+                <img src={profile} />
               </div>
             </label>
             <ul
@@ -152,15 +179,23 @@ function Navbar() {
             >
               <li>
                 <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
+                  <BiUser />
+                  โปรไฟล์
                 </a>
               </li>
               <li>
-                <a>Settings</a>
+                <a className="justify-between">
+                  <BiSolidKey />
+                  เปลี่ยนรหัสผ่าน
+                </a>
               </li>
               <li>
-                <a onClick={handelLogout}>Logout</a>
+                <button
+                  onClick={() => window.modal_warning.showModal()}
+                  className="justify-between"
+                >
+                  <BiLogOut /> ออกจากระบบ
+                </button>
               </li>
             </ul>
           </div>

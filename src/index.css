@@ -10,7 +10,3 @@ body {
 .btn {
   text-transform: none;
 }
-
-.active {
-    @apply text-primary;
-  }

@@ -1,28 +1,48 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
 import Page404 from "../common/Page404";
-import Navbar from "../common/Navbar";
-import Menu from "../common/Menu";
-import Footer from "../common/Footer";
 import CardController from "../containers/controllers/CardController";
+import HomeConcroller from "../containers/controllers/HomeConcroller";
+import LoginController from "../containers/controllers/LoginController";
+import RegisterController from "../containers/controllers/RegisterController";
 
-function DashboradRoute() {
-  return (
-    <div className="bg-base-200 box-dashboard">
-      <Menu />
-      <Navbar />
-      <div className="box-content">
-        <div className="p-2">
-          <Routes>
-            <Route path="/system/card" element={<CardController />} />
-            <Route path="/system/*" element={<Page404 />} />
-            <Route path="/*" element={<Page404 />} />
-          </Routes>
-        </div>
-      </div>
-      <Footer />
-    </div>
-  );
-}
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+import DashboardLayout from "../layout/DashboardLayout";
 
-export default DashboradRoute;
+const routes = [
+  {
+    path: "/*",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "home",
+        element: <HomeConcroller />,
+      },
+      {
+        path: "card",
+        element: <CardController />,
+      },
+      {
+        path: "login",
+        element: <LoginController />,
+      },
+      {
+        path: "register",
+        element: <RegisterController />,
+      },
+      {
+        path: "*",
+        element: <HomeConcroller />,
+      },
+    ],
+  },
+];
+
+export const DashboradRoute = createBrowserRouter(routes, {
+  future: {
+    v7_normalizeFormMethod: true,
+  },
+});

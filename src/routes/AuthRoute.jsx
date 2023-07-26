@@ -1,17 +1,31 @@
 import React from "react";
-import Page404 from "../common/Page404";
-import { Routes, Route } from "react-router-dom";
 import LoginController from "../containers/controllers/LoginController";
+import AuthLayout from "../layout/AuthLayout";
 
-function AuthRoute() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<LoginController />} />
-        <Route path="/*" element={<LoginController />} />
-      </Routes>
-    </div>
-  );
-}
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 
-export default AuthRoute;
+const routes = [
+  {
+    path: "/*",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <LoginController />,
+      },
+      {
+        path: "*",
+        element: <LoginController />,
+      },
+    ],
+  },
+];
+export const AuthRoute = createBrowserRouter(routes, {
+  future: {
+    v7_normalizeFormMethod: true,
+  },
+});

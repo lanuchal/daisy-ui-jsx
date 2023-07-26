@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { active } from "../stores/MenuStateSlice";
 import {
@@ -9,10 +9,18 @@ import {
   BiSolidWidget,
   BiLogOut,
 } from "react-icons/bi";
+import WarningAlert from "../containers/alerts/WarningAlert";
+import { handleLogout } from "../stores/LoginSlice";
 
 function Menu() {
   const menuStateStore = useSelector((state) => state.menuStateStore);
+
+  const menuStore = useSelector((state) => state.menuStore);
+
+  console.log("menuStore", menuStore);
   const dispatch = useDispatch();
+
+  // const navigate = useNavigate();
 
   const location = useLocation();
   const currentPath = location.pathname.slice(1);
@@ -27,19 +35,32 @@ function Menu() {
 
   const [menuPage, setMenuPage] = useState(false);
 
+  const clickLogout = () => {
+    dispatch(handleLogout());
+  };
+
   return (
-    <div className="box-menu bg-base-100 rounded-box text-center py-5 shadow-xl">
+    <div
+      // style={menuStore}
+      className="box-menu bg-base-100 rounded-box text-center py-5 shadow-xl transition duration-300"
+    >
       <span className="text-5xl">
-        <b className="flex justify-center items-center">
-          <BiSolidWidget />
-          <span className="text-lg ms-2">ระบบจัดการภายใน</span>
-        </b>
+        <div className="text-center">
+          <div className="">
+            <BiSolidWidget className="menu-head" />
+          </div>
+
+          <b className=" ms-2 text-2xl">ระบบจัดการภายใน</b>
+        </div>
+        <div className="mt-3 px-2">
+          <hr />
+        </div>
       </span>
       <div className="ul-menu">
-        <ul className="menu w-64">
+        <ul className="menu w-64 menu-md ">
           <li className="mt-2">
             <Link
-              to={"/system/home"}
+              to={"/home"}
               className={`${
                 menuStateStore.home || currentPath == "" ? "active" : ""
               }`}
@@ -50,10 +71,8 @@ function Menu() {
 
           <li className="mt-1">
             <Link
-              to={"/system/card"}
-              className={`${
-                menuStateStore.card || currentPath == "" ? "active" : ""
-              }`}
+              to={"/card"}
+              className={`${menuStateStore.card ? "active" : ""}`}
             >
               <BiSolidIdCard /> Card
             </Link>
@@ -66,22 +85,16 @@ function Menu() {
               <ul>
                 <li className="mt-1">
                   <Link
-                    to={"/system/login"}
-                    className={`${
-                      menuStateStore.login || currentPath == "" ? "active" : ""
-                    }`}
+                    to={"/login"}
+                    className={`${menuStateStore.login && "active"}`}
                   >
                     login
                   </Link>
                 </li>
                 <li className="mt-1">
                   <Link
-                    to={"/system/register"}
-                    className={`${
-                      menuStateStore.register || currentPath == ""
-                        ? "active"
-                        : ""
-                    }`}
+                    to={"/register"}
+                    className={`${menuStateStore.register && "active"}`}
                   >
                     register
                   </Link>
@@ -91,9 +104,14 @@ function Menu() {
           </li>
         </ul>
       </div>
-      <button className="btn btn-sm  absolute bottom-3 left-2 z-40 w-60">
-        <BiLogOut /> logout
+      <button
+        className="btn btn-sm  absolute bottom-3 left-2 z-40 w-60"
+        onClick={() => window.modal_warning.showModal()}
+      >
+        <BiLogOut /> ออกจากระบบ
       </button>
+
+      <WarningAlert msg="ยืนยันการออกจากระบบ" actions={clickLogout} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  dashboard: true,
+  home: false,
   page: false,
   card: false,
   ui: false,

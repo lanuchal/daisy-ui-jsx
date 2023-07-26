@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export const ThemeSlice = createSlice({
-    name: 'menuStore',
+    name: 'themeStore',
     initialState,
     reducers: {
         handleChangeTheme: (state, action) => {

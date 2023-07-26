@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import DashboradRoute from "./routes/DashboradRoute";
-import AuthRoute from "./routes/AuthRoute";
+import { DashboradRoute } from "./routes/DashboradRoute";
+import { AuthRoute } from "./routes/AuthRoute";
 import { useSelector } from "react-redux";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
   const loginStore = useSelector((state) => state.loginStore.status);
@@ -12,7 +13,15 @@ function App() {
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
 
-  return <>{loginStore ? <DashboradRoute /> : <AuthRoute />}</>;
+  return (
+    <>
+      {loginStore ? (
+        <RouterProvider router={DashboradRoute} />
+      ) : (
+        <RouterProvider router={AuthRoute} />
+      )}
+    </>
+  );
 }
 
 export default App;
