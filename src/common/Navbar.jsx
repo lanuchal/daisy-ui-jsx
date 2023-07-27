@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../stores/LoginSlice";
 import { handleChangeTheme } from "../stores/ThemeSlice";
-import { showMenu } from "../stores/MenuSlice";
+import { showMenu, hiddenMenu } from "../stores/MenuSlice";
 
 import profile from "/src/assets/img/eskimo_496436.png";
 
@@ -16,6 +16,7 @@ import {
   BiUser,
   BiSolidKey,
 } from "react-icons/bi";
+import { FcTemplate } from "react-icons/fc";
 
 function Navbar() {
   // const navigate = useNavigate();
@@ -122,46 +123,66 @@ function Navbar() {
             </div>
           </div>
 
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn  btn-ghost btn-circle text-primary text-2xl">
-              <BiBrush /> 
-            </label>
+          <div className="drawer drawer-end">
+            <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+            <div className="drawer-content">
+              {/* Page content here */}
+              <label
+                htmlFor="my-drawer-4"
+                className="drawer-button btn  btn-ghost btn-circle text-primary text-2xl"
+              >
+                <BiBrush />
+              </label>
+            </div>
+            <div className="drawer-side z-40">
+              <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
-            <div
-              tabIndex={0}
-              className="mt-3 z-[5] card card-compact dropdown-content lg:96 md:w-96 sm:w-72 w-72 bg-base-100 shadow"
-            >
-              <div className="card-body">
-                <div className="flex flex-wrap justify-between">
-                  {dataTheme.map((themeInArray, key) => {
-                    const maxLength = 7;
-                    var valTheme;
-                    if (themeInArray.length > maxLength) {
-                      valTheme = themeInArray.slice(0, 5) + "..";
-                    } else {
-                      valTheme = themeInArray;
-                    }
+              <div className="menu p-4  h-full    p-1.5 ">
+                <div className="bg-base-100 h-full text-base-content w-80 block rounded-box">
+                  <h2 className="text-center my-4 px-5">
+                    {" "}
+                    <span className="flex justify-center items-center text-5xl mt-3">
+                      <FcTemplate />{" "}
+                      <b className="ms-3 text-2xl">Theme Custom</b>
+                      <br />
+                    </span>{" "}
+                    <span className="flex justify-center items-center mb-3">
+                    theme : <b className="text-primary ms-2"> {theme}</b>
+                    </span>{" "}
+                    <hr />
+                  </h2>
 
-                    if (themeInArray) {
-                      return (
-                        <div
-                          className="tooltip w-28 ms-1 mb-1"
-                          data-tip={themeInArray}
-                          key={key}
-                        >
-                          <button
-                            className={`btn btn-sm btn-block ${
-                              themeInArray == theme && "btn-primary"
-                            }`}
-                            onClick={() => clickChangeTheme(themeInArray)}
+                  <div className="flex flex-wrap justify-between m-3 px-4">
+                    {dataTheme.map((themeInArray, key) => {
+                      const maxLength = 7;
+                      var valTheme;
+                      if (themeInArray.length > maxLength) {
+                        valTheme = themeInArray.slice(0, 5) + "..";
+                      } else {
+                        valTheme = themeInArray;
+                      }
+
+                      if (themeInArray) {
+                        return (
+                          <div
+                            className="tooltip w-28 m-1 "
+                            data-tip={themeInArray}
+                            key={key}
                           >
-                            <BiSolidBrushAlt />
-                            {valTheme}
-                          </button>
-                        </div>
-                      );
-                    }
-                  })}
+                            <button
+                              className={`btn btn-sm btn-block ${
+                                themeInArray == theme && "btn-primary"
+                              }`}
+                              onClick={() => clickChangeTheme(themeInArray)}
+                            >
+                              <BiSolidBrushAlt />
+                              {valTheme}
+                            </button>
+                          </div>
+                        );
+                      }
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

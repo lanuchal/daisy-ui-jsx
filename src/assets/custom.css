@@ -14,7 +14,7 @@
 }
 .box-content {
   min-height: 90%;
-  padding-left: 18rem;
+  /* padding-left: 18rem; */
 }
 .box-content-in {
   min-height: 85vh;

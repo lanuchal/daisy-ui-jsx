@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  display: "block"
+  value: localStorage.getItem("showMenu") ? localStorage.getItem("showMenu") : true
 }
 
 export const MenuSlice = createSlice({
@@ -9,10 +9,12 @@ export const MenuSlice = createSlice({
   initialState,
   reducers: {
     showMenu: (state) => {
-      state.display = "block";
+      state.value = true;
+      localStorage.setItem("showMenu", true);
     },
     hiddenMenu: (state) => {
-      state.display = "none";
+      state.value = false;
+      localStorage.setItem("showMenu", false);
     }
   },
 })
