@@ -45,7 +45,6 @@ function Menu() {
     }
   };
 
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
@@ -55,9 +54,8 @@ function Menu() {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, []); 
+  }, []);
 
-  
   if (windowWidth < 980) {
     console.log("asdasd");
   }
@@ -79,11 +77,11 @@ function Menu() {
           </div>
 
           <h1
-            className={`origin-left font-mededium text-xl duration-300 ${
+            className={`origin-left font-mededium text-xl duration-100 ${
               !menuStore && "scale-0"
             }  `}
           >
-            Dashborad {windowWidth}
+            Dashborad
           </h1>
         </div>
         <div className="mt-5 px-5">
@@ -121,9 +119,11 @@ function Menu() {
           <li className="mt-1">
             <Link
               to={"/home"}
-              className={` ${!menuStore ? "w-10 ps-3.5" : "w-full"} ${
+              className={`duration-300 ${
+                !menuStore ? "w-10 ps-3.5" : "w-full"
+              } ${
                 menuStateStore.home || currentPath == "" ? "active" : ""
-              }`}
+              } duration-300`}
             >
               <BiSolidHome />
               <p className={`${!menuStore && "scale-0"} duration-300`}>Home</p>
@@ -133,9 +133,9 @@ function Menu() {
           <li className="mt-1">
             <Link
               to={"/card"}
-              className={`${!menuStore ? "w-10 ps-3.5" : "w-full"} ${
-                menuStateStore.card ? "active" : ""
-              }`}
+              className={`duration-300 ${
+                !menuStore ? "w-10 ps-3.5" : "w-full"
+              } ${menuStateStore.card ? "active" : ""} `}
             >
               <BiSolidIdCard />
               <p className={`${!menuStore && "scale-0"} duration-300`}>Card</p>

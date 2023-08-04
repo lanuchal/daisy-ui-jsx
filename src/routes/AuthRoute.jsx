@@ -7,6 +7,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import { BASE_PATH } from "../Constants";
 
 const routes = [
   {
@@ -24,8 +25,14 @@ const routes = [
     ],
   },
 ];
-export const AuthRoute = createBrowserRouter(routes, {
-  future: {
-    v7_normalizeFormMethod: true,
+export const AuthRoute = createBrowserRouter(
+  routes,
+  {
+    basename: BASE_PATH,
   },
-});
+  {
+    future: {
+      v7_normalizeFormMethod: true,
+    },
+  }
+);

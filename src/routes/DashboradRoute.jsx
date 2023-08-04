@@ -7,14 +7,14 @@ import RegisterController from "../containers/controllers/RegisterController";
 
 import {
   createBrowserRouter,
-  createRoutesFromElements,
-  Route,
 } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
+import { BASE_PATH } from "../Constants";
 
 const routes = [
   {
     path: "/*",
+
     element: <DashboardLayout />,
     children: [
       {
@@ -41,8 +41,14 @@ const routes = [
   },
 ];
 
-export const DashboradRoute = createBrowserRouter(routes, {
-  future: {
-    v7_normalizeFormMethod: true,
+export const DashboradRoute = createBrowserRouter(
+  routes,
+  {
+    basename: BASE_PATH,
   },
-});
+  {
+    future: {
+      v7_normalizeFormMethod: true,
+    },
+  }
+);
