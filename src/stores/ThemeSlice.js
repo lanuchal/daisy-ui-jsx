@@ -11,7 +11,6 @@ export const ThemeSlice = createSlice({
         handleChangeTheme: (state, action) => {
             state.value = action.payload;
             localStorage.setItem("theme", action.payload);
-            // console.log(action.payload)
         },
 
     },

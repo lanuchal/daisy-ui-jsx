@@ -11,4 +11,8 @@ export const Store = configureStore({
         loginStore: LoginSlice,
         themeStore: ThemeSlice
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 })

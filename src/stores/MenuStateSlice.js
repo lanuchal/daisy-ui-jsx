@@ -1,38 +1,67 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
+import { BiHome, BiCard, BiFileBlank,BiLogIn,BiUserPlus } from "react-icons/bi";
 
-const initialState = {
-  home: false,
-  page: false,
-  card: false,
-  ui: false,
-  eui: false,
-  icons: false,
-  forme: false,
-  forml: false,
-  tables: false,
-  login: false,
-  register: false
-}
+const initialState = [
+  {
+    title: "Home",
+    icons: BiHome(),
+    open: false,
+    route: "home",
+    sub: [],
+  },
+  {
+    title: "Card",
+    icons: BiCard(),
+    open: false,
+    route: "card",
+    sub: [],
+  },
+  {
+    title: "Page",
+    icons:  BiFileBlank(),
+    open: false,
+    route: "page",
+    sub: [
+      {
+        title: "Login",
+        icons: BiLogIn(),
+        open: false,
+        route: "login",
+      },
+      {
+        title: "Register",
+        icons: BiUserPlus(),
+        open: false,
+        route: "register",
+      },
+    ],
+  },
+];
 
 export const MenuStateSlice = createSlice({
-  name: 'menuStateStore',
+  name: "menuStateStore",
   initialState,
   reducers: {
     active: (state, action) => {
-      const { key } = action.payload;
-      // ตั้งค่า key ที่รับมาเป็น true
-      state[key] = true;
-      // ตั้งค่าที่เหลือทั้งหมดเป็น false
-      Object.keys(state).forEach((menuKey) => {
-        if (menuKey !== key) {
-          state[menuKey] = false;
+      const { title, open } = action.payload;
+      state.forEach((item) => {
+        item.open = title === item.route;
+        if (open) {
+          if (item.sub.length !== 0) {
+            item.sub.forEach((subItem) => {
+              subItem.open = open === subItem.route;
+            });
+          }
+        } else {
+          item.sub.forEach((subItem) => {
+            subItem.open = false;
+          });
         }
       });
     },
   },
-})
+});
 
-// Action creators are generated for each case reducer function
-export const { active } = MenuStateSlice.actions
+export const { active } = MenuStateSlice.actions;
 
-export default MenuStateSlice.reducer
+export default MenuStateSlice.reducer;

@@ -3,9 +3,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { handleLogout } from "../stores/LoginSlice";
-import { handleChangeTheme } from "../stores/ThemeSlice";
-import { showMenu, hiddenMenu } from "../stores/MenuSlice";
+import { handleLogout } from "../../stores/LoginSlice";
+import { handleChangeTheme } from "../../stores/ThemeSlice";
+import { showMenu, hiddenMenu } from "../../stores/MenuSlice";
 
 import profile from "/src/assets/img/eskimo_496436.png";
 
@@ -17,6 +17,7 @@ import {
   BiSolidKey,
 } from "react-icons/bi";
 import { FcTemplate } from "react-icons/fc";
+import Menu from "./Menu";
 
 function Navbar() {
   // const navigate = useNavigate();
@@ -64,24 +65,43 @@ function Navbar() {
     "winter",
   ];
   return (
-    <div className="box-nav ">
-      <div className="navbar rounded-box box-nav-in">
-        <div className="flex-1">
-          <a
-            className="btn btn-ghost normal-case text-xl"
+    <div className="box-nav box-nav-in rounded-box">
+      <div className="navbar rounded-box ">
+        <div className="drawer z-[100] boxs-drawer">
+          <input
+            id="menu-drawer"
+            type="checkbox"
+            className="drawer-toggle"
             onClick={() => clickShowMenu()}
-          >
-            <svg
-              className="swap-off fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 512 512"
-            >
-              <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-            </svg>
-          </a>
+          />
+
+          <div className="drawer-content">
+            {/* Page content here */}
+            <label htmlFor="menu-drawer">
+              <a className="btn btn-ghost">
+                <svg
+                  className="swap-off fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 512 512"
+                >
+                  <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+                </svg>
+              </a>
+            </label>
+          </div>
+          <div className="drawer-side">
+            <label htmlFor="menu-drawer" className="drawer-overlay"></label>
+            <div className="menu h-full">
+              <div className="rounded-box h-full w-64 text-base-content">
+                <Menu />
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div className="flex-1"></div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -126,7 +146,6 @@ function Navbar() {
           <div className="drawer drawer-end">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
-              {/* Page content here */}
               <label
                 htmlFor="my-drawer-4"
                 className="drawer-button btn  btn-ghost btn-circle text-primary text-2xl"
@@ -137,7 +156,7 @@ function Navbar() {
             <div className="drawer-side z-40">
               <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
-              <div className="menu p-4  h-full    p-1.5 ">
+              <div className="menu p-1.5 h-full ">
                 <div className="bg-base-100 h-full text-base-content w-80 block rounded-box">
                   <h2 className="text-center my-4 px-5">
                     {" "}
@@ -147,7 +166,7 @@ function Navbar() {
                       <br />
                     </span>{" "}
                     <span className="flex justify-center items-center mb-3">
-                    theme : <b className="text-primary ms-2"> {theme}</b>
+                      theme : <b className="text-primary ms-2"> {theme}</b>
                     </span>{" "}
                     <hr />
                   </h2>

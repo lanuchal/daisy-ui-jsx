@@ -1,5 +1,5 @@
 import React from "react";
-import CardView from "../views/CardView";
+import CardView from "./CardView";
 
 function CardController() {
   return <CardView />;

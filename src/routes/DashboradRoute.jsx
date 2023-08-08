@@ -1,20 +1,17 @@
 import React from "react";
-import Page404 from "../common/Page404";
-import CardController from "../containers/controllers/CardController";
-import HomeConcroller from "../containers/controllers/HomeConcroller";
-import LoginController from "../containers/controllers/LoginController";
-import RegisterController from "../containers/controllers/RegisterController";
+import Page404 from "../containers/_common/Page404";
 
-import {
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
-import { BASE_PATH } from "../Constants";
+import { BASE_PATH } from "../utils/Constants";
+import HomeConcroller from "../containers/home/HomeConcroller";
+import CardController from "../containers/card/CardController";
+import LoginController from "../containers/auth/LoginController";
+import RegisterController from "../containers/auth/RegisterController";
 
 const routes = [
   {
     path: "/*",
-
     element: <DashboardLayout />,
     children: [
       {
@@ -26,16 +23,21 @@ const routes = [
         element: <CardController />,
       },
       {
-        path: "login",
-        element: <LoginController />,
-      },
-      {
-        path: "register",
-        element: <RegisterController />,
+        path: "page",
+        children: [
+          {
+            path: "login",
+            element: <LoginController />,
+          },
+          {
+            path: "register",
+            element: <RegisterController />,
+          },
+        ],
       },
       {
         path: "*",
-        element: <HomeConcroller />,
+        element: <Page404 />,
       },
     ],
   },

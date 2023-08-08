@@ -1,5 +1,4 @@
 import React from "react";
-import LoginController from "../containers/controllers/LoginController";
 import AuthLayout from "../layout/AuthLayout";
 
 import {
@@ -7,7 +6,8 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import { BASE_PATH } from "../Constants";
+import { BASE_PATH } from "../utils/Constants";
+import LoginController from "../containers/auth/LoginController";
 
 const routes = [
   {
